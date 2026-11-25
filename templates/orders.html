@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block content %}<section class="sec narrow"><h1 class="title serif">My Orders</h1>
+{% for o in orders %}<a class="box orow" href="{{ url_for('order_done', oid=o.id) }}"><b>#{{ o.id }}</b><span>{{ o.created[:10] }}</span><span>{{ o.status }}</span><b>{{ o.total|taka }}</b></a>{% else %}<p class="center muted">No orders yet.</p>{% endfor %}</section>{% endblock %}

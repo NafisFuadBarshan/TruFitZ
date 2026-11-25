@@ -1,0 +1,1 @@
+<ol class="steps">{% for n, l in [(1,'Cart'),(2,'Details'),(3,'Payment'),(4,'Complete')] %}<li class="{{ 'done' if n<step else ('now' if n==step) }}"><i>{{ '✓' if n<step else n }}</i>{{ l }}</li>{% endfor %}</ol>

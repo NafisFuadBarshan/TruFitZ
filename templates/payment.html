@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Payment | TruFitZ{% endblock %}
+{% block content %}<section class="sec narrow"><h1 class="title serif">Payment</h1>{% include "_steps.html" %}
+<div class="two"><form method="post" class="form"><h3>Payment method</h3>
+<label class="opt"><input type="radio" name="method" value="cod" checked><span><b>Cash on delivery</b><small>Pay when your order arrives</small></span></label>
+<label class="opt"><input type="radio" name="method" value="bkash"><span><b>bKash</b><small>Mobile payment (demo — no real charge)</small></span></label>
+<label class="opt"><input type="radio" name="method" value="nagad"><span><b>Nagad</b><small>Mobile payment (demo — no real charge)</small></span></label>
+<label class="opt"><input type="radio" name="method" value="card"><span><b>Card</b><small>Demo only — no card details collected</small></span></label>
+<p class="muted small">Deliver to: {{ f.name }}, {{ f.address }}, {{ f.city }} · {{ f.phone }}</p>
+<button class="btn-dark block">Place order · {{ total|taka }}</button><a class="link" href="{{ url_for('checkout') }}">← Back to details</a></form>
+{% include "_summary.html" %}</div></section>{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Order #{{ o.id }} | TruFitZ{% endblock %}
+{% block content %}<section class="sec narrow"><h1 class="title serif">Thank you, {{ o.name }}!</h1>{% include "_steps.html" %}
+<div class="box"><p class="center">Order <b>#{{ o.id }}</b> is <b>{{ o.status }}</b>. Payment: {{ o.payment|upper }}.</p>
+{% for it in items %}<div class="sline"><span>{{ it.name }} <small>({{ it.size }}) × {{ it.qty }}</small></span><b>{{ (it.price*it.qty)|taka }}</b></div>{% endfor %}
+<hr><div class="sline"><span>Subtotal</span><b>{{ o.subtotal|taka }}</b></div><div class="sline"><span>Shipping</span><b>{{ o.shipping|taka }}</b></div><div class="sline"><span>Tax</span><b>{{ o.tax|taka }}</b></div><div class="sline total"><span>Total</span><b>{{ o.total|taka }}</b></div>
+<p class="muted small">Delivering to {{ o.address }}, {{ o.city }}.</p></div>
+<p class="center"><a class="btn-dark" href="{{ url_for('products') }}">Continue shopping</a></p></section>{% endblock %}

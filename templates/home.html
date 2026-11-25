@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-in">
+    <h1>TruFitZ</h1>
+    <p class="kicker">EXPRESS YOUR TRUE FIT</p>
+    <p class="sub">Because your look should be as sharp as your mind.</p>
+    <div class="cta"><a class="btn-light" href="{{ url_for('categories') }}">Discover collections</a><a class="btn-ghost" href="{{ url_for('products') }}">New arrivals</a></div>
+  </div>
+  <div class="scroll">⌄</div>
+</section>
+<section class="sec"><h2 class="title">Shop by category</h2>
+  <div class="catgrid">{% for c in nav_cats %}
+    <a class="cat reveal" href="{{ url_for('products', slug=c.slug) }}">{% if c.badge %}<span class="tag">{{ c.badge }}</span>{% endif %}<i>{{ c.icon }}</i><h3>{{ c.name }}</h3><p>{{ c.tagline }}</p><span>Explore →</span></a>
+  {% endfor %}</div></section>
+<section class="sec alt"><h2 class="title">TruFitZ Picks</h2>
+  <div class="grid">{% for p in picks %}{% include "_card.html" %}{% endfor %}</div>
+  <p class="center"><a class="btn-dark" href="{{ url_for('products') }}">View all products</a></p></section>
+{% endblock %}

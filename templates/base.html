@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}TruFitZ | Express Your True Fit{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="ticker">STYLE · COMFORT · CONFIDENCE · ALWAYS</div>
+<header class="nav" id="nav">
+  <a class="brand" href="{{ url_for('home') }}"><span class="logo">T</span>TRUFITZ</a>
+  <form class="search" action="{{ url_for('products') }}"><input name="q" placeholder="Search products…" value="{{ request.args.get('q','') }}" aria-label="Search"></form>
+  <nav class="links">
+    <a href="{{ url_for('categories') }}">Collections</a>
+    {% if user %}
+      {% if user.is_admin %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+      <a href="{{ url_for('my_orders') }}">Orders</a><a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}<a href="{{ url_for('login') }}">Login</a>{% endif %}
+    <a class="cartbtn" href="{{ url_for('cart') }}">Cart{% if cart_count %}<b>{{ cart_count }}</b>{% endif %}</a>
+  </nav>
+</header>
+{% with msgs = get_flashed_messages() %}{% if msgs %}<div class="flashes">{% for m in msgs %}<div class="flash">{{ m }}<button onclick="this.parentElement.remove()" aria-label="Dismiss">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="foot">
+  <div class="foot-in">
+    <div><div class="brand light"><span class="logo">T</span>TRUFITZ</div><p>Express your true fit. Premium everyday fashion, made in Bangladesh.</p></div>
+    <div><h4>Shop</h4>{% for c in nav_cats[:5] %}<a href="{{ url_for('products', slug=c.slug) }}">{{ c.name }}</a>{% endfor %}</div>
+    <div><h4>Account</h4><a href="{{ url_for('login') }}">Login</a><a href="{{ url_for('register') }}">Register</a><a href="{{ url_for('cart') }}">Cart</a></div>
+  </div>
+  <p class="copy">© 2026 TruFitZ. All rights reserved.</p>
+</footer>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body></html>

@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Your cart | TruFitZ{% endblock %}
+{% block content %}<section class="sec narrow"><h1 class="title serif">Your Cart</h1>
+{% if items %}<div class="two">
+<div>{% for it in items %}<div class="crow"><img src="{{ url_for('static', filename='img/' ~ it.p.image) }}" alt=""><div class="grow"><a href="{{ url_for('product', slug=it.p.slug) }}"><b>{{ it.p.name }}</b></a><small>Size {{ it.size }}</small><small>{{ it.p.price|taka }} each</small></div>
+<form method="post" action="{{ url_for('cart_update', key=it.key) }}" class="qty"><button name="qty" value="{{ it.qty-1 }}">−</button><input value="{{ it.qty }}" readonly><button name="qty" value="{{ it.qty+1 }}">+</button></form><b class="lt">{{ it.line|taka }}</b></div>{% endfor %}
+{% if saved %}<p class="save">You save {{ saved|taka }} on this order.</p>{% endif %}</div>
+<div>{% set step=1 %}{% include "_summary.html" %}<a class="btn-dark block" href="{{ url_for('checkout') }}">Proceed to checkout</a><a class="link" href="{{ url_for('products') }}">← Continue shopping</a></div></div>
+{% else %}<p class="center muted">Your cart is empty.</p><p class="center"><a class="btn-dark" href="{{ url_for('products') }}">Start shopping</a></p>{% endif %}</section>{% endblock %}

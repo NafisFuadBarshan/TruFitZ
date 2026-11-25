@@ -1,0 +1,9 @@
+<article class="card reveal">
+  <a class="imgwrap" href="{{ url_for('product', slug=p.slug) }}">
+    {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
+    <img src="{{ url_for('static', filename='img/' ~ p.image) }}" alt="{{ p.name }}" loading="lazy">
+  </a>
+  <h3>{{ p.name }}</h3>
+  <div class="price">{{ p.price|taka }}{% if p.old_price and p.old_price > p.price %} <s>{{ p.old_price|taka }}</s>{% endif %}</div>
+  <a class="btn-outline" href="{{ url_for('product', slug=p.slug) }}">View details →</a>
+</article>

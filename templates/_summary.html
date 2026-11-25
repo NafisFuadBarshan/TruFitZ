@@ -1,0 +1,6 @@
+<aside class="summary"><h3>Order summary</h3>
+{% for it in items %}<div class="sline"><span>{{ it.p.name }} <small>({{ it.size }}) × {{ it.qty }}</small></span><b>{{ it.line|taka }}</b></div>{% endfor %}
+<hr><div class="sline"><span>Subtotal</span><b>{{ subtotal|taka }}</b></div>
+<div class="sline"><span>Shipping</span><b>{{ ship|taka }}</b></div>
+<div class="sline"><span>Tax (5%)</span><b>{{ tax|taka }}</b></div>
+<div class="sline total"><span>Total</span><b>{{ total|taka }}</b></div></aside>

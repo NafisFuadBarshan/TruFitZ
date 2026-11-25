@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Checkout | TruFitZ{% endblock %}
+{% block content %}<section class="sec narrow"><h1 class="title serif">Complete Your Order</h1>{% include "_steps.html" %}
+<div class="two"><form method="post" class="form"><h3>Personal information</h3>
+<label>Full name<input name="name" value="{{ f.name }}" required></label>
+<label>Phone<input name="phone" value="{{ f.phone }}" required placeholder="01XXXXXXXXX"></label>
+<label>Email (optional)<input type="email" name="email" value="{{ f.email }}"></label>
+<label>Delivery address<textarea name="address" rows="3" required>{{ f.address }}</textarea></label>
+<label>City<input name="city" value="{{ f.city }}" required><small>Dhaka ৳60 · Outside Dhaka ৳120</small></label>
+<button class="btn-dark block">Continue to payment</button></form>
+{% include "_summary.html" %}</div></section>{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}{{ p.name }} | TruFitZ{% endblock %}
+{% block content %}<section class="sec"><nav class="crumbs"><a href="{{ url_for('home') }}">Home</a> / <a href="{{ url_for('products', slug=p.cat_slug) }}">{{ p.cat_name }}</a> / {{ p.name }}</nav>
+<div class="pd">
+  <div class="pd-img">{% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}<img src="{{ url_for('static', filename='img/' ~ p.image) }}" alt="{{ p.name }}"></div>
+  <div class="pd-info">
+    <h1>{{ p.name }}</h1>
+    <div class="price big">{{ p.price|taka }}{% if p.old_price and p.old_price > p.price %} <s>{{ p.old_price|taka }}</s> <em>Save {{ (p.old_price-p.price)|taka }}</em>{% endif %}</div>
+    <p class="stock {{ 'ok' if p.stock>0 else 'no' }}">{{ 'In stock' if p.stock>0 else 'Out of stock' }}</p>
+    <h4>Product details</h4><p>{{ p.description }}</p>
+    <form method="post" action="{{ url_for('cart_add', pid=p.id) }}">
+      <h4>Size</h4><div class="sizes">{% for s in p.sizes.split(',') %}<label><input type="radio" name="size" value="{{ s }}" {{ 'checked' if loop.first }}><span>{{ s }}</span></label>{% endfor %}</div>
+      <h4>Quantity</h4><div class="qty"><button type="button" data-d="-1">−</button><input name="qty" value="1" readonly><button type="button" data-d="1">+</button></div>
+      <div class="actions"><button class="btn-gold" {{ 'disabled' if p.stock<=0 }}>Add to cart</button><button class="btn-dark" name="buy" value="1" {{ 'disabled' if p.stock<=0 }}>Buy now</button><a class="btn-outline" href="{{ url_for('cart') }}">View cart</a></div>
+    </form>
+  </div>
+</div></section>
+{% if related %}<section class="sec alt"><h2 class="title">You may also like</h2><div class="grid">{% for p in related %}{% include "_card.html" %}{% endfor %}</div></section>{% endif %}{% endblock %}
